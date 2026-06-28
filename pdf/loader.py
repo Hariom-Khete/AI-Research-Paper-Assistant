@@ -1,6 +1,18 @@
 import pymupdf
 
-filename = "C:\\Users\\acer\\Desktop\\Projects\\AI Research Paper Assistant\\data\\papers\\ForgeNet_X_IEEE_Paper.pdf"
-doc = pymupdf.open(filename)
-toc = doc.get_toc()
-print(toc)
+def read_pdf(file):
+
+    pdf = pymupdf.open(stream=file.read(), filetype="pdf")
+
+    pages = []
+
+    for page_num, page in enumerate(pdf, start=1):
+
+        pages.append({
+            "page": page_num,
+            "text": page.get_text()
+        })
+
+    pdf.close()
+
+    return pages
